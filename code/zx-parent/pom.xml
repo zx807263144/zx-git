@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<profiles>
+		<!-- development -->
+		<profile>
+			<id>zx-development</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<!--也可以直接把distributionManagement写在profiles外部，就是直接指定使用该distributionManagement-->
+			<distributionManagement>
+				<!-- 和settings.xml中的server要对应上 -->
+				<repository>
+					<id>zx-nexus-releases</id>
+					<name>zx nexus releases repository</name>
+					<url>http://192.168.210.128:8081/repository/maven-releases/</url>
+				</repository>
+				<snapshotRepository>
+					<id>zx-nexus-snapshots</id>
+					<name>zx nexus snapshots repository</name>
+					<url>http://192.168.210.128:8081/repository/maven-snapshots/</url>
+				</snapshotRepository>
+			<distributionManagement>
+		</profile>
+	</profiles>
+</project>
