@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+	<properties resource="mybatis.properties" />
+
+	<classPathEntry location="${jdbc.path}" />
+
+	<context id="MyBatisContext" targetRuntime="MyBatis3">
+
+		<property name="javaFileEncoding" value="${mybatis.javaFileEncoding}" />
+
+		<!-- 初始化方法插件. -->
+		<plugin type="com.zx.maybatis.generator.plugins.InitMethodNamePlugin" />
+		<!-- <plugin type="com.hz.mumm.dal.generator.base.SimpleGeneratorPlugin" /> -->
+		
+		<!-- 继承类插件. -->
+		<plugin type="com.zx.maybatis.generator.plugins.SuperclassPlugin" />
+		<!-- 格式化命名插件. -->
+		<plugin type="com.zx.maybatis.generator.plugins.ClassNamePlugin" />
+
+		<!-- <commentGenerator type="org.lop.modules.repository.mybatis.generator.internal.CommentGenerator">
+			<property name="suppressAllComments" value="${mybatis.suppressAllComments}" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator> -->
+		<commentGenerator type="com.zx.maybatis.generator.comment.SimpleCommentGenerator">
+			<property name="suppressAllComments" value="${mybatis.suppressAllComments}" /><!-- 是否取消注释 -->
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		
+		<!-- jdbc连接 -->
+		<jdbcConnection driverClass="${jdbc.driver}"
+			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}" />
+
+		<!-- 类型转换 -->
+		<javaTypeResolver>
+			<!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+			<property name="forceBigDecimals" value="false" />
+			<!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+			<property name="trimStrings" value="true" />
+		</javaTypeResolver>
+
+		<!-- 生成实体类地址 -->
+		<javaModelGenerator targetPackage="${mybatis.model.package}"
+			targetProject="${mybatis.project}">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="true" />
+			<property name="rootClass" value="${mybatis.base.model.Model}" />
+		</javaModelGenerator>
+
+		<!-- 生成map.xml文件 -->
+		<sqlMapGenerator targetPackage="${mybatis.mapping.package}"
+			targetProject="${mybatis.project}">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 生成接口dao -->
+		<javaClientGenerator targetPackage="${mybatis.dao.package}"
+			targetProject="${mybatis.project}" type="XMLMAPPER">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 配置表信息 -->
+<!-- 		<table schema="" tableName="zx_user" domainObjectName="UserModel" -->
+<!-- 			enableCountByExample="false" enableDeleteByExample="false" -->
+<!-- 			enableSelectByExample="false" enableUpdateByExample="false"> -->
+			<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 
+				是否生成 example类 -->
+		<table schema="" tableName="zx_user" domainObjectName="User">
+
+			<!-- 忽略列，不生成bean 字段 -->
+<!-- 			<ignoreColumn column="FRED" /> -->
+			<!-- 指定列的java数据类型 -->
+<!-- 			<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /> -->
+			<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+		</table>
+	</context>
+</generatorConfiguration>
