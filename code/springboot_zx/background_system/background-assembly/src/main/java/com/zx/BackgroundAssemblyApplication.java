@@ -8,6 +8,7 @@ public class BackgroundAssemblyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackgroundAssemblyApplication.class, args);
+		System.out.println( "**======================================**" );
 		System.out.println( "background-assembly run" );
 	}
 }

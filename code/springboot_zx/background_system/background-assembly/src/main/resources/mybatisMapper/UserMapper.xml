@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.background.dao.UserDao">
+	<resultMap id="Result" type="com.zx.background.model.UserModel">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="real_name" jdbcType="VARCHAR" property="realName" />
+		<result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="gmt_create_time" jdbcType="TIMESTAMP" property="gmtCreateTime" />
+		<result column="gmt_modify_time" jdbcType="TIMESTAMP" property="gmtModifyTime" />
+	</resultMap>
+	<sql id="Columns">
+		id, real_name, nick_name, password, gmt_create_time, gmt_modify_time
+	</sql>
+	
+	<select id="find" parameterType="java.lang.Long" resultMap="Result">
+		select
+		<include refid="Columns" />
+		from zx_user
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from zx_user
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="create" parameterType="com.zx.background.model.UserModel">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into zx_user (real_name, nick_name, password,
+		gmt_create_time, gmt_modify_time)
+		values (#{realName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		NOW(), NOW())
+	</insert>
+	<update id="update" parameterType="com.zx.background.model.UserModel">
+		update zx_user
+		set real_name = #{realName,jdbcType=VARCHAR},
+		nick_name = #{nickName,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="findUserList" resultMap="Result">
+		select 
+		<include refid="Columns"/>
+		from zx_user
+	</select>
+</mapper>
