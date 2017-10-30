@@ -1,0 +1,27 @@
+#config-server的默认端口是使用8888，如果自己修改了端口，那么config-client中congfig相关的配置不能放在application.yml中，要放在bootstrap.yml中
+server:
+  port: 8767
+
+spring:
+  application:
+    name: config-server
+    
+  cloud:
+    config:
+      server:
+        git:
+#          配置git仓库地址
+          uri: git@github.com:zx807263144/zx-git.git
+#          配置仓库路径
+          search-paths: code/spring-cloud-config
+#          访问git仓库的用户名
+          username: zx807263144
+#          访问git仓库的用户密码
+          password: a1d3t8w9m5
+#     配置仓库的分支
+      label: master
+#配置config服务集群
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
