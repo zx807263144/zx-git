@@ -1,0 +1,171 @@
+cd /etc/profile.d
+cat jdk_path.sh
+cat nexus_path.sh
+cat mongodb_path.sh
+
+nexus访问地址
+http://192.168.210.129:8081/  admin admin123
+
+redis安装在usr/local/redis目录下
+yum install wget
+wget http://download.redis.io/releases/redis-4.0.1.tar.gz
+tar -zvxf  redis-4.0.1.tar.gz
+cd redis-4.0.1
+yum install gcc
+make
+src/redis-server redis.conf 启动
+src/redis-cli shutdown 停止
+
+
+mongodb安装在usr/local/mongodb下
+curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.4.7.tgz 
+tar -zxvf mongodb-linux-x86_64-3.0.6.tgz
+cd /etc/profile.d
+vi mongodb_path.sh
+mkdir -p /data/db MongoDB的数据存储在data目录的db目录下
+./mongod 启动
+cd /usr/local/mongodb/bin
+./mongo  MongoDB自带的交互式Javascript shell
+./mongod --dbpath=/data/db --rest  MongoDB 提供了简单的 HTTP 用户界面。 如果你想启用该功能，需要在启动的时候指定参数 --rest 。MongoDB 的 Web 界面访问端口比服务的端口多1000。
+
+如果你的MongoDB运行端口使用默认的27017，你可以在端口号为28017访问web用户界面，即地址为：http://localhost:28017。
+
+
+elasticsearch安装在usr/local/elasticsearch下，安装包是在官网下载，然后通过rz上传到linux上
+
+Spring Boot Version (x)    Spring Data Elasticsearch Version (y)   Elasticsearch Version (z)
+	x <= 1.3.5 			y <= 1.3.4 			z <= 1.7.2 
+	x >= 1.4.x 			2.0.0 <=y <5.0.0 		2.0.0 <= z < 5.0.0 
+eclipse中的elasticsearch版本一定要和linux上的版本相匹配，不然会连接不上
+tar -zxvf elasticsearch-2.4.6.tgr.gz
+cd elasticsearch-2.4.6/config
+
+这一段配置视5.5.2版本所需，2.4.6版本没有提示错误
+vi jvm.options
+将
+-Xms2g
+-Xmx2g
+改为
+-Xms512M
+-Xmx512M
+
+
+不能通过root启动，su zhongxin
+cd ..
+bin/elasticsearch
+启动失败，将elasticsearch-2.4.6文件所有者改为zhongxin
+chown -R zhongxin:zhongxin elasticsearch-2.4.6
+再次启动成功
+但是只能再虚拟机本机访问 curl -XGET localhost:9200出现数据
+修改config/elasticsearch.yml 下network.host修改为192.168.210.129（服务器地址）
+重启报错
+[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536] 原因: 最大文件描述符太低, 需要增加到65536
+su到root用户, vim /etc/security/limits.conf
+*	 hard    nofile           65536
+*        soft    nofile           65536
+
+[2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+原因: 堆内存太低, 继续调大
+vi /etc/sysctl.conf 
+vm.max_map_count=655360
+sysctl -p 生效
+重启成功 
+将对应端口加入防火墙
+firewall-cmd --zone=public --add-port=9200/tcp --permanent
+
+
+rabbitmq安装，因为rabbitmq是基于erlang语言的，所以要先安装erlang环境
+安装erlang依赖环境：
+　　yum install gcc glibc-devel make ncurses-devel openssl-devel xmlto
+　  下载安装包，地址http://www.erlang.org/downloads，我选择的是otp_src_20.0.tar.tar
+linux上：
+cd /usr/local
+mkdir rabbitmq
+rz otp_src_20.0.tar.tar
+tar -zvxf otp_src_20.0.tar.tar
+rm otp_src_20.0.tar.tar
+cd otp_src_20.0
+./configure
+make && make install
+erl
+出现下面的话时，说明安装成功
+    Erlang/OTP 20 [erts-9.0] [source] [64-bit] [smp:1:1] [ds:1:1:10] [async-threads:10] [hipe] 	    [kernel-poll:false]
+
+    Eshell V9.0  (abort with ^G)
+    1> 
+输入halt().退出
+cd /etc/profile.d/
+vim erlang_path.sh
+
+wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.11/rabbitmq-server-generic-unix-3.6.11.tar.xz
+xz -d rabbitmq-server-generic-unix-3.6.11.tar.xz
+tar -xvf rabbitmq-server-generic-unix-3.6.11.tar  运行参数不加z是因为不是gzip类型的压缩文件
+rm rabbitmq-server-generic-unix-3.6.11.tar
+cd /etc/profile.d/
+vim rabbitmq_path.sh
+./rabbitmq-server -detached 启动rabbitmq
+./rabbitmqctl status 查看服务状态
+./rabbitmqctl stop 停止
+启用网页插件，这样可以通过浏览器访问rabbitmq
+mkdir enable_plugins 存储已启用的插件
+cd enable_plugins/
+rabbitmq-plugins enable rabbitmq_management
+firewall-cmd --zone=public --add-port=5672/tcp --permanent AMQP端口
+firewall-cmd --zone=public --add-port=15672/tcp --permanent 网页管理端口
+将这两个端口都加入防火墙
+firewall-cmd --reload
+浏览器输入192.168.210.169:15672  默认guest guest
+登录失败，因为默认是不能通过网页访问的，需要增加用户配置权限
+rabbitmqctl add_user zhongxin zhongxin  添加用户
+rabbitmqctl set_permissions -p "/" zhongxin ".*" ".*" ".*"  添加权限
+rabbitmqctl set_user_tags zhongxin administrator  修改用户角色
+
+rabbitmq常用命令
+　　add_user        <UserName> <Password>
+　　delete_user     <UserName>
+　　change_password <UserName> <NewPassword>
+　　list_users
+　　add_vhost    <VHostPath>
+　　delete_vhost <VHostPath>
+    list_vhostsset_permissions   [-p <VHostPath>] <UserName> <Regexp> <Regexp> <Regexp>
+　　clear_permissions [-p <VHostPath>] <UserName>
+　　list_permissions  [-p <VHostPath>]
+　　list_user_permissions <UserName>
+　　list_queues    [-p <VHostPath>] [<QueueInfoItem> ...]
+　　list_exchanges [-p <VHostPath>] [<ExchangeInfoItem> ...]
+　　list_bindings  [-p <VHostPath>]
+　　list_connections [<ConnectionInfoItem> ...]
+
+
+docker  可以在hub.docker.com查询所需镜像
+yum install docker 安装
+systemctl start docker.service 启动
+systemctl status docker.service 查询状态
+systemctl stop docker.service 停止
+
+docker images 查询本地docker镜像
+
+docker pull 镜像名:tag 从hub.docker拉取镜像，因为这个网站是国外的所以会特别慢
+建议 从ustc拉取
+vi /etc/docker/daemon.json 添加下面这段话
+    {
+        "registry-mirrors":["https://docker:mirrors.ustc.edu.cn"]
+    }
+systemctl restart docker.service 重启docker
+这时候再使用pull拉取镜像就是从ustc获取了 速度很快
+
+docker rmi 镜像名:tag 或者 image Id
+
+docker save 镜像名:tag(如：centos:7） > /root/centos7.tar.gz 将镜像导出为一个文件
+
+docker load < /root/centos7.tar.gz 将文件导入为一个镜像
+
+docker run -it --name 容器名称 镜像名称:tag /bin/bash 将一个镜像运行为一个dock容器，/bin/bash表示用什么方式来进行交互
+
+docker run -d --name 容器名称 镜像名称 将一个镜像作为一个守护进程运行为一个容器
+docker ps 查看正在运行的容器
+docker ps -a 查看历史运行过得所有docker容器
+docker stop 容器名称或者id
+docker start 容器名称或者id
+docker rm 容器名称或者id
+docker rm 'docker ps -a -q' 删除所有容器
