@@ -3,82 +3,90 @@ cat jdk_path.sh
 cat nexus_path.sh
 cat mongodb_path.sh
 
-nexus·ÃÎÊµØÖ·
+nexusè®¿é—®åœ°å€
 http://192.168.210.129:8081/  admin admin123
 
-redis°²×°ÔÚusr/local/redisÄ¿Â¼ÏÂ
+rediså®‰è£…åœ¨usr/local/redisç›®å½•ä¸‹
 yum install wget
 wget http://download.redis.io/releases/redis-4.0.1.tar.gz
 tar -zvxf  redis-4.0.1.tar.gz
 cd redis-4.0.1
 yum install gcc
 make
-src/redis-server redis.conf Æô¶¯
-src/redis-cli shutdown Í£Ö¹
+src/redis-server redis.conf å¯åŠ¨
+src/redis-cli shutdown åœæ­¢
 
 
-mongodb°²×°ÔÚusr/local/mongodbÏÂ
+mongodbå®‰è£…åœ¨usr/local/mongodbä¸‹
 curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.4.7.tgz 
 tar -zxvf mongodb-linux-x86_64-3.0.6.tgz
 cd /etc/profile.d
 vi mongodb_path.sh
-mkdir -p /data/db MongoDBµÄÊı¾İ´æ´¢ÔÚdataÄ¿Â¼µÄdbÄ¿Â¼ÏÂ
-./mongod Æô¶¯
+mkdir -p /data/db MongoDBçš„æ•°æ®å­˜å‚¨åœ¨dataç›®å½•çš„dbç›®å½•ä¸‹
+./mongod å¯åŠ¨
 cd /usr/local/mongodb/bin
-./mongo  MongoDB×Ô´øµÄ½»»¥Ê½Javascript shell
-./mongod --dbpath=/data/db --rest  MongoDB Ìá¹©ÁË¼òµ¥µÄ HTTP ÓÃ»§½çÃæ¡£ Èç¹ûÄãÏëÆôÓÃ¸Ã¹¦ÄÜ£¬ĞèÒªÔÚÆô¶¯µÄÊ±ºòÖ¸¶¨²ÎÊı --rest ¡£MongoDB µÄ Web ½çÃæ·ÃÎÊ¶Ë¿Ú±È·şÎñµÄ¶Ë¿Ú¶à1000¡£
+./mongo  MongoDBè‡ªå¸¦çš„äº¤äº’å¼Javascript shell
+./mongod --dbpath=/data/db --rest  MongoDB æä¾›äº†ç®€å•çš„ HTTP ç”¨æˆ·ç•Œé¢ã€‚ å¦‚æœä½ æƒ³å¯ç”¨è¯¥åŠŸèƒ½ï¼Œéœ€è¦åœ¨å¯åŠ¨çš„æ—¶å€™æŒ‡å®šå‚æ•° --rest ã€‚MongoDB çš„ Web ç•Œé¢è®¿é—®ç«¯å£æ¯”æœåŠ¡çš„ç«¯å£å¤š1000ã€‚
 
-Èç¹ûÄãµÄMongoDBÔËĞĞ¶Ë¿ÚÊ¹ÓÃÄ¬ÈÏµÄ27017£¬Äã¿ÉÒÔÔÚ¶Ë¿ÚºÅÎª28017·ÃÎÊwebÓÃ»§½çÃæ£¬¼´µØÖ·Îª£ºhttp://localhost:28017¡£
+å¦‚æœä½ çš„MongoDBè¿è¡Œç«¯å£ä½¿ç”¨é»˜è®¤çš„27017ï¼Œä½ å¯ä»¥åœ¨ç«¯å£å·ä¸º28017è®¿é—®webç”¨æˆ·ç•Œé¢ï¼Œå³åœ°å€ä¸ºï¼šhttp://localhost:28017ã€‚
 
 
-elasticsearch°²×°ÔÚusr/local/elasticsearchÏÂ£¬°²×°°üÊÇÔÚ¹ÙÍøÏÂÔØ£¬È»ºóÍ¨¹ırzÉÏ´«µ½linuxÉÏ
+elasticsearchå®‰è£…åœ¨usr/local/elasticsearchä¸‹ï¼Œå®‰è£…åŒ…æ˜¯åœ¨å®˜ç½‘ä¸‹è½½ï¼Œç„¶åé€šè¿‡rzä¸Šä¼ åˆ°linuxä¸Š
 
 Spring Boot Version (x)    Spring Data Elasticsearch Version (y)   Elasticsearch Version (z)
 	x <= 1.3.5 			y <= 1.3.4 			z <= 1.7.2 
 	x >= 1.4.x 			2.0.0 <=y <5.0.0 		2.0.0 <= z < 5.0.0 
-eclipseÖĞµÄelasticsearch°æ±¾Ò»¶¨ÒªºÍlinuxÉÏµÄ°æ±¾ÏàÆ¥Åä£¬²»È»»áÁ¬½Ó²»ÉÏ
+eclipseä¸­çš„elasticsearchç‰ˆæœ¬ä¸€å®šè¦å’Œlinuxä¸Šçš„ç‰ˆæœ¬ç›¸åŒ¹é…ï¼Œä¸ç„¶ä¼šè¿æ¥ä¸ä¸Š
 tar -zxvf elasticsearch-2.4.6.tgr.gz
 cd elasticsearch-2.4.6/config
 
-ÕâÒ»¶ÎÅäÖÃÊÓ5.5.2°æ±¾ËùĞè£¬2.4.6°æ±¾Ã»ÓĞÌáÊ¾´íÎó
+è¿™ä¸€æ®µé…ç½®è§†5.5.2ç‰ˆæœ¬æ‰€éœ€ï¼Œ2.4.6ç‰ˆæœ¬æ²¡æœ‰æç¤ºé”™è¯¯
 vi jvm.options
-½«
+å°†
 -Xms2g
 -Xmx2g
-¸ÄÎª
+æ”¹ä¸º
 -Xms512M
 -Xmx512M
 
 
-²»ÄÜÍ¨¹ırootÆô¶¯£¬su zhongxin
+ä¸èƒ½é€šè¿‡rootå¯åŠ¨ï¼Œsu zhongxin
 cd ..
 bin/elasticsearch
-Æô¶¯Ê§°Ü£¬½«elasticsearch-2.4.6ÎÄ¼şËùÓĞÕß¸ÄÎªzhongxin
+å¯åŠ¨å¤±è´¥ï¼Œå°†elasticsearch-2.4.6æ–‡ä»¶æ‰€æœ‰è€…æ”¹ä¸ºzhongxin
 chown -R zhongxin:zhongxin elasticsearch-2.4.6
-ÔÙ´ÎÆô¶¯³É¹¦
-µ«ÊÇÖ»ÄÜÔÙĞéÄâ»ú±¾»ú·ÃÎÊ curl -XGET localhost:9200³öÏÖÊı¾İ
-ĞŞ¸Äconfig/elasticsearch.yml ÏÂnetwork.hostĞŞ¸ÄÎª192.168.210.129£¨·şÎñÆ÷µØÖ·£©
-ÖØÆô±¨´í
-[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536] Ô­Òò: ×î´óÎÄ¼şÃèÊö·ûÌ«µÍ, ĞèÒªÔö¼Óµ½65536
-suµ½rootÓÃ»§, vim /etc/security/limits.conf
+å†æ¬¡å¯åŠ¨æˆåŠŸ
+ä½†æ˜¯åªèƒ½å†è™šæ‹Ÿæœºæœ¬æœºè®¿é—® curl -XGET localhost:9200å‡ºç°æ•°æ®
+ä¿®æ”¹config/elasticsearch.yml ä¸‹network.hostä¿®æ”¹ä¸º192.168.210.129ï¼ˆæœåŠ¡å™¨åœ°å€ï¼‰
+é‡å¯æŠ¥é”™
+[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536] åŸå› : æœ€å¤§æ–‡ä»¶æè¿°ç¬¦å¤ªä½, éœ€è¦å¢åŠ åˆ°65536
+suåˆ°rootç”¨æˆ·, vim /etc/security/limits.conf
 *	 hard    nofile           65536
 *        soft    nofile           65536
 
 [2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-Ô­Òò: ¶ÑÄÚ´æÌ«µÍ, ¼ÌĞøµ÷´ó
+åŸå› : å †å†…å­˜å¤ªä½, ç»§ç»­è°ƒå¤§
 vi /etc/sysctl.conf 
 vm.max_map_count=655360
-sysctl -p ÉúĞ§
-ÖØÆô³É¹¦ 
-½«¶ÔÓ¦¶Ë¿Ú¼ÓÈë·À»ğÇ½
+sysctl -p ç”Ÿæ•ˆ
+[3]: max number of threads [3818] for user [beimingyu] is too low, increase to at least [4096]
+vi /etc/security/limits.d/20-nproc.conf
+*          soft    nproc     655350 
+root       soft    nproc     unlimited 
+å› ä¸ºä¸Šé¢çš„é…ç½®å¹¶ä¸èƒ½å®ç°æˆ‘ä»¬çš„æ•ˆæœï¼Œæ‰€ä»¥è¿˜è¦ç¼–è¾‘ä¸€ä¸ªé…ç½®æ–‡ä»¶ï¼š/etc/systemd/system.conf
+DefaultLimitNPROC=655350 
+é‡å¯å°±ä¼šå‘ç°max user processes å˜æˆäº†æˆ‘ä»¬ä¿®æ”¹çš„655350äº†ã€‚
+åªä¿®æ”¹/etc/security/limits.d/20-nproc.conf æˆ–è€…/etc/systemd/system.conf å…¶ä¸­ä¸€ä¸ªé‡å¯åçš„æ•°å€¼éƒ½æ˜¯ä¸å˜çš„ï¼Œå¿…é¡»è¦ä¸¤ä¸ªé…ç½®æ–‡ä»¶éƒ½è¦ä¿®æ”¹ã€‚å¦‚æœ/etc/systemd/system.confä¸­åªæŠŠä¸Šé¢ä¸¤è¡Œæ³¨é‡Šå»æ‰ä¸è¾“å…¥æ•°å€¼çš„è¯ï¼Œæœ€ç»ˆå°±ä¼šæŒ‰é…ç½®æ–‡ä»¶/etc/security/limits.d/20-nproc.conf ä¸­çš„å€¼æ˜¾ç¤ºã€‚
+é‡å¯æˆåŠŸ 
+å°†å¯¹åº”ç«¯å£åŠ å…¥é˜²ç«å¢™
 firewall-cmd --zone=public --add-port=9200/tcp --permanent
 
 
-rabbitmq°²×°£¬ÒòÎªrabbitmqÊÇ»ùÓÚerlangÓïÑÔµÄ£¬ËùÒÔÒªÏÈ°²×°erlang»·¾³
-°²×°erlangÒÀÀµ»·¾³£º
-¡¡¡¡yum install gcc glibc-devel make ncurses-devel openssl-devel xmlto
-¡¡  ÏÂÔØ°²×°°ü£¬µØÖ·http://www.erlang.org/downloads£¬ÎÒÑ¡ÔñµÄÊÇotp_src_20.0.tar.tar
-linuxÉÏ£º
+rabbitmqå®‰è£…ï¼Œå› ä¸ºrabbitmqæ˜¯åŸºäºerlangè¯­è¨€çš„ï¼Œæ‰€ä»¥è¦å…ˆå®‰è£…erlangç¯å¢ƒ
+å®‰è£…erlangä¾èµ–ç¯å¢ƒï¼š
+ã€€ã€€yum install gcc glibc-devel make ncurses-devel openssl-devel xmlto
+ã€€  ä¸‹è½½å®‰è£…åŒ…ï¼Œåœ°å€http://www.erlang.org/downloadsï¼Œæˆ‘é€‰æ‹©çš„æ˜¯otp_src_20.0.tar.tar
+linuxä¸Šï¼š
 cd /usr/local
 mkdir rabbitmq
 rz otp_src_20.0.tar.tar
@@ -88,84 +96,84 @@ cd otp_src_20.0
 ./configure
 make && make install
 erl
-³öÏÖÏÂÃæµÄ»°Ê±£¬ËµÃ÷°²×°³É¹¦
+å‡ºç°ä¸‹é¢çš„è¯æ—¶ï¼Œè¯´æ˜å®‰è£…æˆåŠŸ
     Erlang/OTP 20 [erts-9.0] [source] [64-bit] [smp:1:1] [ds:1:1:10] [async-threads:10] [hipe] 	    [kernel-poll:false]
 
     Eshell V9.0  (abort with ^G)
     1> 
-ÊäÈëhalt().ÍË³ö
+è¾“å…¥halt().é€€å‡º
 cd /etc/profile.d/
 vim erlang_path.sh
 
 wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.11/rabbitmq-server-generic-unix-3.6.11.tar.xz
 xz -d rabbitmq-server-generic-unix-3.6.11.tar.xz
-tar -xvf rabbitmq-server-generic-unix-3.6.11.tar  ÔËĞĞ²ÎÊı²»¼ÓzÊÇÒòÎª²»ÊÇgzipÀàĞÍµÄÑ¹ËõÎÄ¼ş
+tar -xvf rabbitmq-server-generic-unix-3.6.11.tar  è¿è¡Œå‚æ•°ä¸åŠ zæ˜¯å› ä¸ºä¸æ˜¯gzipç±»å‹çš„å‹ç¼©æ–‡ä»¶
 rm rabbitmq-server-generic-unix-3.6.11.tar
 cd /etc/profile.d/
 vim rabbitmq_path.sh
-./rabbitmq-server -detached Æô¶¯rabbitmq
-./rabbitmqctl status ²é¿´·şÎñ×´Ì¬
-./rabbitmqctl stop Í£Ö¹
-ÆôÓÃÍøÒ³²å¼ş£¬ÕâÑù¿ÉÒÔÍ¨¹ıä¯ÀÀÆ÷·ÃÎÊrabbitmq
-mkdir enable_plugins ´æ´¢ÒÑÆôÓÃµÄ²å¼ş
+./rabbitmq-server -detached å¯åŠ¨rabbitmq
+./rabbitmqctl status æŸ¥çœ‹æœåŠ¡çŠ¶æ€
+./rabbitmqctl stop åœæ­¢
+å¯ç”¨ç½‘é¡µæ’ä»¶ï¼Œè¿™æ ·å¯ä»¥é€šè¿‡æµè§ˆå™¨è®¿é—®rabbitmq
+mkdir enable_plugins å­˜å‚¨å·²å¯ç”¨çš„æ’ä»¶
 cd enable_plugins/
 rabbitmq-plugins enable rabbitmq_management
-firewall-cmd --zone=public --add-port=5672/tcp --permanent AMQP¶Ë¿Ú
-firewall-cmd --zone=public --add-port=15672/tcp --permanent ÍøÒ³¹ÜÀí¶Ë¿Ú
-½«ÕâÁ½¸ö¶Ë¿Ú¶¼¼ÓÈë·À»ğÇ½
+firewall-cmd --zone=public --add-port=5672/tcp --permanent AMQPç«¯å£
+firewall-cmd --zone=public --add-port=15672/tcp --permanent ç½‘é¡µç®¡ç†ç«¯å£
+å°†è¿™ä¸¤ä¸ªç«¯å£éƒ½åŠ å…¥é˜²ç«å¢™
 firewall-cmd --reload
-ä¯ÀÀÆ÷ÊäÈë192.168.210.169:15672  Ä¬ÈÏguest guest
-µÇÂ¼Ê§°Ü£¬ÒòÎªÄ¬ÈÏÊÇ²»ÄÜÍ¨¹ıÍøÒ³·ÃÎÊµÄ£¬ĞèÒªÔö¼ÓÓÃ»§ÅäÖÃÈ¨ÏŞ
-rabbitmqctl add_user zhongxin zhongxin  Ìí¼ÓÓÃ»§
-rabbitmqctl set_permissions -p "/" zhongxin ".*" ".*" ".*"  Ìí¼ÓÈ¨ÏŞ
-rabbitmqctl set_user_tags zhongxin administrator  ĞŞ¸ÄÓÃ»§½ÇÉ«
+æµè§ˆå™¨è¾“å…¥192.168.210.169:15672  é»˜è®¤guest guest
+ç™»å½•å¤±è´¥ï¼Œå› ä¸ºé»˜è®¤æ˜¯ä¸èƒ½é€šè¿‡ç½‘é¡µè®¿é—®çš„ï¼Œéœ€è¦å¢åŠ ç”¨æˆ·é…ç½®æƒé™
+rabbitmqctl add_user zhongxin zhongxin  æ·»åŠ ç”¨æˆ·
+rabbitmqctl set_permissions -p "/" zhongxin ".*" ".*" ".*"  æ·»åŠ æƒé™
+rabbitmqctl set_user_tags zhongxin administrator  ä¿®æ”¹ç”¨æˆ·è§’è‰²
 
-rabbitmq³£ÓÃÃüÁî
-¡¡¡¡add_user        <UserName> <Password>
-¡¡¡¡delete_user     <UserName>
-¡¡¡¡change_password <UserName> <NewPassword>
-¡¡¡¡list_users
-¡¡¡¡add_vhost    <VHostPath>
-¡¡¡¡delete_vhost <VHostPath>
+rabbitmqå¸¸ç”¨å‘½ä»¤
+ã€€ã€€add_user        <UserName> <Password>
+ã€€ã€€delete_user     <UserName>
+ã€€ã€€change_password <UserName> <NewPassword>
+ã€€ã€€list_users
+ã€€ã€€add_vhost    <VHostPath>
+ã€€ã€€delete_vhost <VHostPath>
     list_vhostsset_permissions   [-p <VHostPath>] <UserName> <Regexp> <Regexp> <Regexp>
-¡¡¡¡clear_permissions [-p <VHostPath>] <UserName>
-¡¡¡¡list_permissions  [-p <VHostPath>]
-¡¡¡¡list_user_permissions <UserName>
-¡¡¡¡list_queues    [-p <VHostPath>] [<QueueInfoItem> ...]
-¡¡¡¡list_exchanges [-p <VHostPath>] [<ExchangeInfoItem> ...]
-¡¡¡¡list_bindings  [-p <VHostPath>]
-¡¡¡¡list_connections [<ConnectionInfoItem> ...]
+ã€€ã€€clear_permissions [-p <VHostPath>] <UserName>
+ã€€ã€€list_permissions  [-p <VHostPath>]
+ã€€ã€€list_user_permissions <UserName>
+ã€€ã€€list_queues    [-p <VHostPath>] [<QueueInfoItem> ...]
+ã€€ã€€list_exchanges [-p <VHostPath>] [<ExchangeInfoItem> ...]
+ã€€ã€€list_bindings  [-p <VHostPath>]
+ã€€ã€€list_connections [<ConnectionInfoItem> ...]
 
 
-docker  ¿ÉÒÔÔÚhub.docker.com²éÑ¯ËùĞè¾µÏñ
-yum install docker °²×°
-systemctl start docker.service Æô¶¯
-systemctl status docker.service ²éÑ¯×´Ì¬
-systemctl stop docker.service Í£Ö¹
+docker  å¯ä»¥åœ¨hub.docker.comæŸ¥è¯¢æ‰€éœ€é•œåƒ
+yum install docker å®‰è£…
+systemctl start docker.service å¯åŠ¨
+systemctl status docker.service æŸ¥è¯¢çŠ¶æ€
+systemctl stop docker.service åœæ­¢
 
-docker images ²éÑ¯±¾µØdocker¾µÏñ
+docker images æŸ¥è¯¢æœ¬åœ°dockeré•œåƒ
 
-docker pull ¾µÏñÃû:tag ´Óhub.dockerÀ­È¡¾µÏñ£¬ÒòÎªÕâ¸öÍøÕ¾ÊÇ¹úÍâµÄËùÒÔ»áÌØ±ğÂı
-½¨Òé ´ÓustcÀ­È¡
-vi /etc/docker/daemon.json Ìí¼ÓÏÂÃæÕâ¶Î»°
+docker pull é•œåƒå:tag ä»hub.dockeræ‹‰å–é•œåƒï¼Œå› ä¸ºè¿™ä¸ªç½‘ç«™æ˜¯å›½å¤–çš„æ‰€ä»¥ä¼šç‰¹åˆ«æ…¢
+å»ºè®® ä»ustcæ‹‰å–
+vi /etc/docker/daemon.json æ·»åŠ ä¸‹é¢è¿™æ®µè¯
     {
         "registry-mirrors":["https://docker:mirrors.ustc.edu.cn"]
     }
-systemctl restart docker.service ÖØÆôdocker
-ÕâÊ±ºòÔÙÊ¹ÓÃpullÀ­È¡¾µÏñ¾ÍÊÇ´Óustc»ñÈ¡ÁË ËÙ¶ÈºÜ¿ì
+systemctl restart docker.service é‡å¯docker
+è¿™æ—¶å€™å†ä½¿ç”¨pullæ‹‰å–é•œåƒå°±æ˜¯ä»ustcè·å–äº† é€Ÿåº¦å¾ˆå¿«
 
-docker rmi ¾µÏñÃû:tag »òÕß image Id
+docker rmi é•œåƒå:tag æˆ–è€… image Id
 
-docker save ¾µÏñÃû:tag(Èç£ºcentos:7£© > /root/centos7.tar.gz ½«¾µÏñµ¼³öÎªÒ»¸öÎÄ¼ş
+docker save é•œåƒå:tag(å¦‚ï¼šcentos:7ï¼‰ > /root/centos7.tar.gz å°†é•œåƒå¯¼å‡ºä¸ºä¸€ä¸ªæ–‡ä»¶
 
-docker load < /root/centos7.tar.gz ½«ÎÄ¼şµ¼ÈëÎªÒ»¸ö¾µÏñ
+docker load < /root/centos7.tar.gz å°†æ–‡ä»¶å¯¼å…¥ä¸ºä¸€ä¸ªé•œåƒ
 
-docker run -it --name ÈİÆ÷Ãû³Æ ¾µÏñÃû³Æ:tag /bin/bash ½«Ò»¸ö¾µÏñÔËĞĞÎªÒ»¸ödockÈİÆ÷£¬/bin/bash±íÊ¾ÓÃÊ²Ã´·½Ê½À´½øĞĞ½»»¥
+docker run -it --name å®¹å™¨åç§° é•œåƒåç§°:tag /bin/bash å°†ä¸€ä¸ªé•œåƒè¿è¡Œä¸ºä¸€ä¸ªdockå®¹å™¨ï¼Œ/bin/bashè¡¨ç¤ºç”¨ä»€ä¹ˆæ–¹å¼æ¥è¿›è¡Œäº¤äº’
 
-docker run -d --name ÈİÆ÷Ãû³Æ ¾µÏñÃû³Æ ½«Ò»¸ö¾µÏñ×÷ÎªÒ»¸öÊØ»¤½ø³ÌÔËĞĞÎªÒ»¸öÈİÆ÷
-docker ps ²é¿´ÕıÔÚÔËĞĞµÄÈİÆ÷
-docker ps -a ²é¿´ÀúÊ·ÔËĞĞ¹ıµÃËùÓĞdockerÈİÆ÷
-docker stop ÈİÆ÷Ãû³Æ»òÕßid
-docker start ÈİÆ÷Ãû³Æ»òÕßid
-docker rm ÈİÆ÷Ãû³Æ»òÕßid
-docker rm 'docker ps -a -q' É¾³ıËùÓĞÈİÆ÷
+docker run -d --name å®¹å™¨åç§° é•œåƒåç§° å°†ä¸€ä¸ªé•œåƒä½œä¸ºä¸€ä¸ªå®ˆæŠ¤è¿›ç¨‹è¿è¡Œä¸ºä¸€ä¸ªå®¹å™¨
+docker ps æŸ¥çœ‹æ­£åœ¨è¿è¡Œçš„å®¹å™¨
+docker ps -a æŸ¥çœ‹å†å²è¿è¡Œè¿‡å¾—æ‰€æœ‰dockerå®¹å™¨
+docker stop å®¹å™¨åç§°æˆ–è€…id
+docker start å®¹å™¨åç§°æˆ–è€…id
+docker rm å®¹å™¨åç§°æˆ–è€…id
+docker rm 'docker ps -a -q' åˆ é™¤æ‰€æœ‰å®¹å™¨
