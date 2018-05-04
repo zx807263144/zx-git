@@ -1,4 +1,4 @@
-cd /etc/profile.d
+﻿cd /etc/profile.d
 cat jdk_path.sh
 cat nexus_path.sh
 cat mongodb_path.sh
@@ -177,3 +177,5 @@ docker stop 容器名称或者id
 docker start 容器名称或者id
 docker rm 容器名称或者id
 docker rm 'docker ps -a -q' 删除所有容器
+
+
