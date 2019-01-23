@@ -39,6 +39,14 @@ Spring Boot Version (x)    Spring Data Elasticsearch Version (y)   Elasticsearch
 eclipse中的elasticsearch版本一定要和linux上的版本相匹配，不然会连接不上
 tar -zxvf elasticsearch-2.4.6.tgr.gz
 cd elasticsearch-2.4.6/config
+如果要在一台虚拟机上开启多个es服务，相应的配置修改：
+1、cluster.name相同
+2、指定node.name
+3、指定network.host
+4、指定http.port
+5、指定transport.tcp.port
+6、指定discovery.zen.ping.unicast.hosts:["ip:port", "ip:port"]
+7、指定discovery.zen.minimum_master_nodes
 
 这一段配置视5.5.2版本所需，2.4.6版本没有提示错误
 vi jvm.options
