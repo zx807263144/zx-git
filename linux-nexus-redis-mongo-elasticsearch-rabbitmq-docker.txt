@@ -158,6 +158,7 @@ yum install docker 安装
 systemctl start docker.service 启动
 systemctl status docker.service 查询状态
 systemctl stop docker.service 停止
+systemctl enable docker 设置开机自启动
 
 docker images 查询本地docker镜像
 
