@@ -1,4 +1,0 @@
-<!--pages/welcome/welcome.wxml-->
-<view class="wrap">
-  <image class="welcomeImg" src="../../images/UNSLEEP.jpg" bindtap="clickLogo"/>
-</view>
